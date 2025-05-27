@@ -14,7 +14,8 @@ int main(int argc, char const *argv[])
         cout << "0 - Sair" << endl;
         cout << "1 - Adicionar alunos" << endl;
         cout << "2 - Exibir aluno(s)" << endl;
-        cout << "3 - Buscar aluno" << endl;
+        cout << "3 - Buscar aluno" << endl
+             << endl;
         int opcao;
         cin >> opcao;
         size_t qtd;
@@ -24,50 +25,68 @@ int main(int argc, char const *argv[])
 
         switch (opcao)
         {
-            case 0:
-                cout << "Fim do programa" << endl;
-                exit(0);
-                break;
-            case 1:
-                cout << "Quantos alunos você deseja adicionar: ";
-                cin >> qtd;
-                for (size_t i = 0; i < qtd; i++)
-                {
-                    cout << "Nome do aluno: ";
-                    cin >> nome;
-                    cout << "Nota 1: ";
-                    cin >> nota1;
-                    cout << "Nota 2: ";
-                    cin >> nota2;
-                    Aluno aluno(nome, nota1, nota2);
-                    turma.adicionarAluno(aluno);
-                    cout << "A média do aluno é" << aluno.media;
-                }
-                break;
-            case 2:
-                cout << "Alunos da turma: " << endl;
-                for (size_t i = 0; i < turma.alunos.size(); i++)
-                {
-                    cout << i + 1 << "- " << turma.alunos[i].nome << " | " << turma.alunos[i].nota1 << " | " << turma.alunos[i].nota2 << " | " << turma.alunos[i].media << endl;
-                }
-                cout << "Média final da turma: " << turma.mediaGeral << endl;
-                break;
-            case 3:
-                cout << "Qual aluno você deseja buscar?" << endl;
+        case 0:
+            cout << "Fim do programa" << endl
+                 << endl;
+            exit(0);
+            break;
+        case 1:
+            cout << "Quantos alunos você deseja adicionar: ";
+            cin >> qtd;
+            for (size_t i = 0; i < qtd; i++)
+            {
+                cout << "Nome do aluno: ";
                 cin >> nome;
-                for (Aluno aluno : turma.alunos)
+                cout << "Nota 1: ";
+                cin >> nota1;
+                cout << "Nota 2: ";
+                cin >> nota2;
+                Aluno aluno(nome, nota1, nota2);
+                turma.adicionarAluno(aluno);
+                cout << "A média do aluno é " << aluno.media << endl
+                     << endl;
+            }
+            break;
+        case 2:
+            cout << "Alunos da turma: " << endl
+                 << endl;
+            for (size_t i = 0; i < turma.alunos.size(); i++)
+            {
+                cout << i + 1 << "- " << turma.alunos[i].nome << " | " << turma.alunos[i].nota1 << " | " << turma.alunos[i].nota2 << " | " << turma.alunos[i].media << endl
+                     << endl;
+            }
+            cout << "Média final da turma: " << turma.mediaGeral << endl
+                 << endl;
+            break;
+        case 3:
+        {
+            cout << "Qual aluno você deseja buscar?" << endl;
+            cin.ignore();
+            getline(cin, nome);
+
+            bool encontrado = false;
+
+            for (Aluno aluno : turma.alunos)
+            {
+                if (aluno.nome == nome)
                 {
-                    if (aluno.nome == nome)
-                    {
-                    cout << aluno.nome << " | " << aluno.nota1 << " | " << aluno.nota2 << " | " << aluno.media << endl;
-                    }
-                    else {
-                        cout << "Aluno não encontrado" << endl;
-                    }
+                    cout << "Nome: " << aluno.nome 
+                        << " | Nota 1: " << aluno.nota1 
+                        << " | Nota 2: " << aluno.nota2 
+                        << " | Media: " << aluno.media << endl << endl;
+                    encontrado = true;
+                    break;
                 }
-                break;
-            default:
-                break;
+            }
+
+            if (!encontrado)
+            {
+                cout << "Aluno não encontrado" << endl << endl;
+            }
+            break;
+        }
+        default:
+            break;
         }
     }
     return 0;
