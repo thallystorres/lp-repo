@@ -1,22 +1,17 @@
+# Makefile 
 CXX      := g++
 CXXFLAGS := -Iinclude_cpp -std=c++17 -Wall
 
-SRCS     := $(wildcard *.cpp)
-OBJS     := $(SRCS:.cpp=.o)
-TARGET   := final_cpp
+# Make expande os arquivos .c e .cpp
+SRCS_CPP := $(wildcard *.cpp)
 
-.PHONY: all clean run
+.PHONY: all clean test_cpp
 
-all: $(TARGET)
+all: test_cpp
 
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^
-
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-run: $(TARGET)
-	./$(TARGET)
+test_cpp:
+	$(CXX) $(CXXFLAGS) $(SRCS_CPP) -o final_cpp
+	./final_cpp
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f final_cpp
