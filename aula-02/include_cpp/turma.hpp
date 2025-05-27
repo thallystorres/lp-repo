@@ -6,7 +6,7 @@
 struct Turma
 {
     std::vector<Aluno> alunos;
-    double mediaGeral;
+    double mediaGeral = 0.0;
 
     void adicionarAluno(Aluno aluno);
 
